@@ -1,23 +1,20 @@
 package userService
 
 import (
-	domain "TaskAPI/src/domain"
+	"TaskAPI/src/dao/userDao"
+	"TaskAPI/src/domain"
 	"TaskAPI/src/mock"
-	"fmt"
 )
 
 //Slice de users
 var userList []domain.User
 
 func AddUser (u domain.User) bool {
-	//Agrego elementos en el mock
-	mock.UserList = append(mock.UserList,u)
-	fmt.Println("Elemento agregado")
-	return true
+	return userDao.Add(u)
 }
 
-func ModifyUser (user domain.User) {
-
+func ModifyUser (user domain.User) bool {
+	return userDao.Modify(user)
 }
 
 func GetUserList () []domain.User {
