@@ -10,7 +10,7 @@ import (
 //mapping de entidades
 
 
-func ConnectToDatabase () {
+func CreateSchema() {
 
 	var schema= append(make([]string, 3), "select * from task")
 
@@ -39,5 +39,14 @@ func ConnectToDatabase () {
 	}
 }
 
+func OpenConnection() (string,*sqlx.DB) {
+	connection,err := sqlx.Connect("mysql","ariel:LimaHotel96*@tcp(localhost:3306)/goPractice")
+	fmt.Println(connection)
+	if err!=nil {
+		return "Falló la conexión", connection
+	} else {
+		return "Conexión exitosa", connection
+	}
+}
 
 

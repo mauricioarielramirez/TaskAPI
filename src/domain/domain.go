@@ -3,10 +3,10 @@ package domain
 // TYPE User
 
 type User struct {
-	id int
-	name string
-	alias string
-	description string
+	id 			int    `db:"id"`
+	name 		string `db:"name"`
+	alias		string `db:"alias"`
+	description string `db:"description"`
 }
 
 func (u *User) Description() string {

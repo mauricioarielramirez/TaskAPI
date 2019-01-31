@@ -3,7 +3,6 @@ package userService
 import (
 	"TaskAPI/src/dao/userDao"
 	"TaskAPI/src/domain"
-	"TaskAPI/src/mock"
 )
 
 //Slice de users
@@ -18,10 +17,13 @@ func ModifyUser (user domain.User) bool {
 }
 
 func GetUserList () []domain.User {
-	//uso las cosas con el mock
-	var listUser = mock.UserList
-	return listUser
+	return userDao.List()
 }
+
+func DeleteUser(id int) bool {
+	return userDao.Delete(id)
+}
+
 
 /*func GetUser (id int) domain.User {
 	return nil

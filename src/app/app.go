@@ -2,18 +2,16 @@ package app
 
 import (
 	"TaskAPI/src/controller"
-	"TaskAPI/src/dataBaseConnection"
 	"TaskAPI/src/domain"
-	"TaskAPI/src/mock"
 	"fmt"
 )
 
 func DoSomething () {
 	//inicializo el mock de cosas
-	mock.SetEntities()
-	dataBaseConnection.ConnectToDatabase()
+	//mock.SetEntities()
+	//dataBaseConnection.CreateSchema()
 
-	var newUser domain.User
+	/*var newUser domain.User
 	newUser.SetId(0); //con cero voy a indicar que es nuevo
 	newUser.SetName("Daniela Jacuzzi")
 	newUser.SetAlias("djacuzzi")
@@ -21,18 +19,20 @@ func DoSomething () {
 
 	EmulateOperation("add",newUser)
 	fmt.Println("Primera inserción")
-	fmt.Printf("%+v",controller.ListUsers())
+	fmt.Printf("%+v",controller.ListUsers())*/
 
-	var modifiedUser domain.User
+	/*var modifiedUser domain.User
 	modifiedUser.SetId(2); //voy a llamar a modificar
 	modifiedUser.SetName("Eugenia Rubio")
 	modifiedUser.SetAlias("erubio")
-	modifiedUser.SetDescription("People IT Manager")
+	modifiedUser.SetDescription("People IT Manager")*/
 
-	EmulateOperation("modify",modifiedUser)
+	//EmulateOperation("modify",modifiedUser)
 
-	fmt.Println("Impresión despues de modificar")
+	//fmt.Println("Impresión despues de modificar")
 	fmt.Printf("%+v",controller.ListUsers())
+
+	//EmulateOperation("delete", domain.User{})
 }
 
 func InitialiceRoutes() {
@@ -45,6 +45,10 @@ func EmulateOperation(operation string, entityUser domain.User) {
 		controller.AddUser(entityUser)
 	case "modify":
 		controller.AddUser(entityUser)
+	case "delete":
+		controller.DeleteUser(5)
+	case "list":
+		controller.ListUsers();
 	default:
 		fmt.Println("Opción inválida")
 	}

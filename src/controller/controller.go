@@ -20,3 +20,7 @@ func AddUser(user domain.User) {
 func modifyUser(user domain.User) {
 	uService.ModifyUser(user)
 }
+
+func DeleteUser(id int) {
+	uService.DeleteUser(id)
+}
