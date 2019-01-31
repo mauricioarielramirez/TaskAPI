@@ -12,17 +12,15 @@ import (
 
 func ConnectToDatabase () {
 
-	var schema=make([]string,3)
+	var schema= append(make([]string, 3), "select * from task")
 
-	schema = append(schema,"create table user (id int, name varchar(30), alias varchar(30), description varchar(120))",
-		"create table task (id int, name varchar(30), description varchar(120), created datetime, modified datetime, modifiedBy int, creator int)",
-	"create table user_task(userId int, taskId int)")
+	schema = append(schema,"create table if not exists user (id int, name varchar(30), alias varchar(30), description varchar(120))",
+		"create table if not exists  task (id int, name varchar(30), description varchar(120), created datetime, modified datetime, modifiedBy int, creator int)",
+		"create table if not exists  user_task(userId int, taskId int)")
 
 	/*schema = "create table user (id int, name varchar(30), alias varchar(30), description varchar(120)); " +
 		"create table task (id int, name varchar(30), description varchar(120), created datetime, modified datetime, modifiedBy int, creator int);" +
 		"create table user_task(userId int, taskId int);"*/
-
-
 
 	//<username>:<password>@tcp(<host:port>)/<schemaname>
 	db,err := sqlx.Connect("mysql","ariel:LimaHotel96*@tcp(localhost:3306)/goPractice")
@@ -34,16 +32,12 @@ func ConnectToDatabase () {
 		fmt.Println("Conexión exitosa")
 		for _,v:= range schema {
 			if v != "" {
-				db.MustExec(v)
+				fmt.Println(db.MustExec(v).RowsAffected())
 			}
 
 		}
 	}
 }
-
-
-
-	//sqlx.Connect("mysql","user=ariel dbname=goPractice pass=LimaHotel96*")
 
 
 
