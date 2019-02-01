@@ -19,9 +19,9 @@ type Task struct {
 	Description string	`db:"description"`
 	Created 	string	`db:"created"`
 	Modified 	string	`db:"modified"`
-	ModifiedBy 	User	`db:"modifiedBy"`
-	Creator 	User	`db:"creator"`
-	SharedWith []User	`db:"sharedWith"`
+	ModifiedBy 	User	`db:"modifiedBy" sql.Null`
+	Creator 	User	`db:"creator" sql.Null`
+	SharedWith []User	`db:"sharedWith" sql.Null`
 }
 
 

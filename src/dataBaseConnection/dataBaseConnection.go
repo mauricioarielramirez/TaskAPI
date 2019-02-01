@@ -41,7 +41,6 @@ func CreateSchema() {
 
 func OpenConnection() (string,*sqlx.DB) {
 	connection,err := sqlx.Connect("mysql","ariel:LimaHotel96*@tcp(localhost:3306)/goPractice")
-	fmt.Println(connection)
 	if err!=nil {
 		return "Falló la conexión", connection
 	} else {

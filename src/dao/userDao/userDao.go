@@ -12,7 +12,6 @@ var connection *sqlx.DB
 
 func Add(user domain.User) bool {
 	_,connection = dataBaseConnection.OpenConnection()
-	fmt.Println(connection)
 	connection.MustBegin()
 	err:=connection.MustExec("INSERT INTO user(id,name,alias,description) VALUES (?, ?, ?, ?)" ,getNextId(),user.Name,user.Alias,user.Description)
 	if err!=nil {
@@ -62,6 +61,45 @@ func getNextId() int {
 	for sqlResult.Next() {
 		sqlResult.Scan(&returnId)
 	}
-	fmt.Println(returnId)
 	return returnId + 1
+}
+
+func GetByCriteria (user domain.User) []domain.User {
+	_,connection = dataBaseConnection.OpenConnection()
+
+	preparedStatement:="SELECT id, name, alias, description FROM user where "
+	users:= []domain.User{}
+	params := []string{}
+
+	if user.Name != "" {
+		preparedStatement = preparedStatement + "name = ? "
+		params = append(params, user.Name)
+	} else {
+		preparedStatement = preparedStatement + "0 = ?"
+		params = append(params, "0")
+	}
+
+	if user.Alias!= "" {
+		preparedStatement = preparedStatement + " and alias = ? "
+		params = append(params, user.Alias)
+	} else {
+		preparedStatement = preparedStatement + " and 0 = ? "
+		params = append(params, "0")
+	}
+
+	if user.Description!= "" {
+		preparedStatement = preparedStatement + " and description = ? "
+		params = append(params, user.Description)
+	} else {
+		preparedStatement = preparedStatement + " and 0 = ? "
+		params = append(params,"0" )
+	}
+
+	err := connection.Select(&users,preparedStatement, params[0],params[1],params[2])
+
+	if err!=nil {
+		fmt.Println(err)
+	}
+
+	return users
 }

@@ -5,9 +5,6 @@ import (
 	"TaskAPI/src/domain"
 )
 
-//Slice de users
-var userList []domain.User
-
 func AddUser (u domain.User) bool {
 	return userDao.Add(u)
 }
@@ -20,11 +17,20 @@ func GetUserList () []domain.User {
 	return userDao.List()
 }
 
+func GetUserById (id int) domain.User {
+	return userDao.GetById(id)
+}
+
 func DeleteUser(id int) bool {
 	return userDao.Delete(id)
 }
 
+func GetUserByCriteria (user domain.User) []domain.User{
+	return userDao.GetByCriteria(user)
+}
 
-/*func GetUser (id int) domain.User {
-	return nil
-}*/
+//Bussines validations
+func verifyAlias (alias string) {
+
+}
+
