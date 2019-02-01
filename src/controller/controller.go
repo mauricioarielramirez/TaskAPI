@@ -10,7 +10,7 @@ func ListUsers() []domain.User {
 }
 
 func AddUser(user domain.User) {
-	if user.Id() == 0 {
+	if user.Id == 0 {
 		uService.AddUser(user)
 	} else {
 		modifyUser(user)

@@ -11,28 +11,28 @@ func DoSomething () {
 	//mock.SetEntities()
 	//dataBaseConnection.CreateSchema()
 
-	/*var newUser domain.User
-	newUser.SetId(0); //con cero voy a indicar que es nuevo
-	newUser.SetName("Daniela Jacuzzi")
-	newUser.SetAlias("djacuzzi")
-	newUser.SetDescription("Service desk employee")
+	var newUser domain.User
+	newUser.Id = 0; //con cero voy a indicar que es nuevo
+	newUser.Name = "Daniela Jacuzzi"
+	newUser.Alias = "djacuzzi"
+	newUser.Description = "Service desk employee"
 
 	EmulateOperation("add",newUser)
 	fmt.Println("Primera inserción")
-	fmt.Printf("%+v",controller.ListUsers())*/
-
-	/*var modifiedUser domain.User
-	modifiedUser.SetId(2); //voy a llamar a modificar
-	modifiedUser.SetName("Eugenia Rubio")
-	modifiedUser.SetAlias("erubio")
-	modifiedUser.SetDescription("People IT Manager")*/
-
-	//EmulateOperation("modify",modifiedUser)
-
-	//fmt.Println("Impresión despues de modificar")
 	fmt.Printf("%+v",controller.ListUsers())
 
-	//EmulateOperation("delete", domain.User{})
+	var modifiedUser domain.User
+	modifiedUser.Id = 2; //voy a llamar a modificar
+	modifiedUser.Name = "Eugenia Rubio"
+	modifiedUser.Alias = "erubio"
+	modifiedUser.Description = "People IT Manager"
+
+	EmulateOperation("modify",modifiedUser)
+
+	fmt.Println("Impresión despues de modificar")
+	fmt.Printf("%+v",controller.ListUsers())
+
+	EmulateOperation("delete", domain.User{})
 }
 
 func InitialiceRoutes() {

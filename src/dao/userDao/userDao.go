@@ -14,7 +14,7 @@ func Add(user domain.User) bool {
 	_,connection = dataBaseConnection.OpenConnection()
 	fmt.Println(connection)
 	connection.MustBegin()
-	err:=connection.MustExec("INSERT INTO user(id,name,alias,description) VALUES (?, ?, ?, ?)" ,getNextId(),user.Name(),user.Alias(),user.Description())
+	err:=connection.MustExec("INSERT INTO user(id,name,alias,description) VALUES (?, ?, ?, ?)" ,getNextId(),user.Name,user.Alias,user.Description)
 	if err!=nil {
 		return false
 	}
@@ -23,7 +23,7 @@ func Add(user domain.User) bool {
 
 func Modify(user domain.User) bool {
 	_,connection = dataBaseConnection.OpenConnection()
-	connection.MustExec("UPDATE user set name = ?, alias = ?, description = ? where id = ?", user.Name(),user.Alias(),user.Description(),user.Id() )
+	connection.MustExec("UPDATE user set name = ?, alias = ?, description = ? where id = ?", user.Name,user.Alias,user.Description,user.Id )
 	return true
 }
 
@@ -46,25 +46,13 @@ func GetById (id int) domain.User {
 
 func List() []domain.User {
 	_,connection = dataBaseConnection.OpenConnection()
-	users:= []*domain.User{}
-	//var user domain.User
-	//var alias string
-
-	/*sqlResult,_ := connection.Queryx("select id, name, alias, description FROM user")
-	for sqlResult.Next() {
-		err:=sqlResult.StructScan(&user)
-		if err!=nil {
-			fmt.Println(err)
-		}
-		fmt.Println(user)
-	}*/
-	err:=connection.Get(&users,"SELECT id, name, alias, description FROM user")
+	users:= []domain.User{}
+	err:=connection.Select(&users,"SELECT id, name, alias, description FROM user")
 	if err!=nil {
 		fmt.Println(err)
 	}
-	fmt.Println(users)
 
-	return []domain.User{}
+	return users
 }
 
 func getNextId() int {
